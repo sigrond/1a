@@ -1,0 +1,28 @@
+     1                                  section	.text
+     2                                  global  func1a
+     3                                  
+     4                                  func1a:
+     5 00000000 55                      	push	ebp
+     6 00000001 89E5                    	mov	ebp, esp
+     7 00000003 8B4508                  	mov	eax, DWORD [ebp+8]	;adres *a do eax
+     8 00000006 8A08                    	mov	cl, BYTE [eax]		;weź znak
+     9                                  
+    10                                  loop:
+    11 00000008 83F961                      cmp ecx, 'a'    ;a[i]>=a
+    12 0000000B 7D09                        jge zmien
+    13 0000000D 84C9                        test cl, cl
+    14 0000000F 740D                        jz koniec
+    15 00000011 40                          inc eax
+    16 00000012 8A08                        mov	cl, BYTE [eax]
+    17 00000014 EBF2                        jmp loop
+    18                                  
+    19                                  zmien:
+    20 00000016 C6002A                      mov	BYTE [eax], '*'
+    21 00000019 40                          inc eax
+    22 0000001A 8A08                        mov	cl, BYTE [eax]
+    23 0000001C EBEA                        jmp loop
+    24                                  
+    25                                  koniec:
+    26 0000001E B800000000              	mov	eax, 0		;return a
+    27 00000023 5D                      	pop	ebp
+    28 00000024 C3                      	ret
